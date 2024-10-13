@@ -1,0 +1,84 @@
+<script lang="ts">
+import { computed, defineComponent } from "vue";
+import type { PropType } from "vue";
+
+export default defineComponent({
+  name: "Square",
+  props: {
+    value: {
+      type: Number as PropType<number>,
+      required: true,
+    },
+    active: {
+      type: Boolean as PropType<boolean>,
+      required: true,
+    },
+    clickHandler: {
+      type: Function as PropType<() => void | null>,
+      required: true,
+    },
+  },
+  components: {},
+  setup(props) {
+    const updatedValue = computed(() => props.value);
+    const updatedActive = computed(() => props.active);
+
+    return {
+      ...props,
+      updatedValue,
+      updatedActive,
+    };
+  },
+});
+</script>
+
+<template>
+  <div :class="['square', `square--${value}`, { 'square--active': updatedActive }]" @click="clickHandler">
+    {{ updatedValue }}
+  </div>
+</template>
+
+<style scoped>
+.square {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+}
+
+.square--active {
+  outline: 3px solid #fff;
+}
+
+.square--10 {
+  background-color: yellow;
+}
+.square--20 {
+  background-color: violet;
+}
+.square--30 {
+  background-color: aqua;
+}
+.square--100 {
+  background-color: aquamarine;
+}
+.square--50 {
+  background-color: blue;
+}
+.square--70 {
+  background-color: blueviolet;
+}
+.square--65 {
+  background-color: yellowgreen;
+}
+.square--45 {
+  background-color: brown;
+}
+.square--15 {
+  background-color: green;
+}
+</style>
